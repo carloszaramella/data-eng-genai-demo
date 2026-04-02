@@ -1,0 +1,30 @@
+app:
+  name: "top-10-clientes-pipeline"
+  log_level: "INFO"
+
+spark:
+  app_name: "Top10ClientesPipeline"
+  master: "local[*]"
+  config:
+    spark.sql.shuffle.partitions: "4"
+    spark.driver.memory: "2g"
+
+catalog:
+  clientes_bronze:
+    path: "data/input/dataset-json-clientes/data"
+    format: "json"
+    options:
+      multiLine: "false"
+  pedidos_bronze:
+    path: "data/input/datasets-csv-pedidos/data/pedidos"
+    format: "csv"
+    options:
+      header: "true"
+      sep: ";"
+      inferSchema: "true"
+
+output:
+  top_10_clientes:
+    path: "data/output/top_10_clientes"
+    format: "parquet"
+    mode: "overwrite"
