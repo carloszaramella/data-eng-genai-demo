@@ -1,0 +1,18 @@
+app:
+  name: "top-10-clientes-pipeline"
+  log_level: "INFO"
+
+catalog:
+  clientes_bronze:
+    path: "data/input/dataset-json-clientes/data/clientes.json.gz"
+    format: "json"
+  pedidos_bronze:
+    path: "data/input/datasets-csv-pedidos/data/pedidos"
+    format: "csv"
+    options:
+      sep: ";"
+
+output:
+  top_10_clientes:
+    path: "data/output/top_10_clientes"
+    format: "parquet"
