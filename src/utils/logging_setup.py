@@ -1,15 +1,18 @@
-"""Configuração de logging padronizado para o pipeline."""
+"""Configuração padronizada de logging para o pipeline."""
 
 import logging
 import sys
 
 
 class LoggingSetup:
-    """Configura o logging da aplicação."""
+    """Cria e configura loggers de forma centralizada."""
 
     @staticmethod
-    def configure(log_level: str = "INFO", app_name: str = "pipeline") -> logging.Logger:
-        """Configura e retorna um logger com o nível especificado."""
+    def configure(
+        log_level: str = "INFO",
+        app_name: str = "pipeline",
+    ) -> logging.Logger:
+        """Retorna um ``Logger`` configurado com handler para *stdout*."""
         numeric_level = getattr(logging, log_level.upper(), logging.INFO)
 
         logger = logging.getLogger(app_name)
@@ -18,8 +21,8 @@ class LoggingSetup:
         if not logger.handlers:
             handler = logging.StreamHandler(sys.stdout)
             handler.setLevel(numeric_level)
-            formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-            handler.setFormatter(formatter)
+            fmt = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+            handler.setFormatter(fmt)
             logger.addHandler(handler)
 
         return logger
