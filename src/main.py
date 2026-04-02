@@ -1,6 +1,7 @@
 """Ponto de entrada da aplicação — Composition Root.
 
-Instancia e injeta todas as dependências nos jobs.
+Instancia e injeta todas as dependências nos jobs,
+seguindo o princípio de Injeção de Dependência.
 """
 
 import os
@@ -13,16 +14,16 @@ from src.utils.logging_setup import LoggingSetup
 
 
 def main() -> None:
-    """Composition Root: configura dependências e executa o pipeline."""
+    """Configura dependências e executa o pipeline Top 10 Clientes."""
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
     config_path = os.path.join(project_root, "config", "config.yaml")
     config_loader = ConfigLoader(config_path=config_path)
 
-    app_config = config_loader.get_app_config()
+    app_cfg = config_loader.get_app_config()
     logger = LoggingSetup.configure(
-        log_level=app_config.get("log_level", "INFO"),
-        app_name=app_config.get("name", "pipeline"),
+        log_level=app_cfg.get("log_level", "INFO"),
+        app_name=app_cfg.get("name", "pipeline"),
     )
 
     logger.info("Configuração carregada com sucesso.")
@@ -36,8 +37,8 @@ def main() -> None:
 
         job = RunTop10Job(data_io=data_io, logger=logger)
         job.run()
-    except Exception as e:
-        logger.error("Erro na execução do pipeline: %s", e)
+    except Exception as exc:
+        logger.error("Erro na execução do pipeline: %s", exc)
         sys.exit(1)
 
 

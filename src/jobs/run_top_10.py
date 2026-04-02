@@ -8,9 +8,13 @@ from src.transforms.vendas_transforms import VendasTransforms
 
 
 class RunTop10Job:
-    """Orquestra a execução do pipeline Top 10 Clientes."""
+    """Coordena leitura, transformação e escrita do ranking Top 10."""
 
-    def __init__(self, data_io: DataIOManager, logger: Optional[logging.Logger] = None):
+    def __init__(
+        self,
+        data_io: DataIOManager,
+        logger: Optional[logging.Logger] = None,
+    ) -> None:
         self._data_io = data_io
         self._logger = logger or logging.getLogger(__name__)
 
@@ -29,7 +33,7 @@ class RunTop10Job:
         self._logger.info("Executando transformações...")
         df_top_10 = VendasTransforms.executar_pipeline(df_pedidos, df_clientes)
 
-        self._logger.info("Resultado - Top 10 Clientes:")
+        self._logger.info("Resultado — Top 10 Clientes:")
         self._logger.info("\n%s", df_top_10.to_string(index=False))
 
         self._logger.info("Salvando resultado em top_10_clientes...")
