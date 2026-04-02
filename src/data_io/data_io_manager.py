@@ -67,10 +67,10 @@ class DataIOManager:
         os.makedirs(path, exist_ok=True)
 
         if data_format == "parquet":
-            output_file = os.path.join(path, "top_10_clientes.parquet")
+            output_file = os.path.join(path, f"{output_id}.parquet")
             df.to_parquet(output_file, index=False)
         elif data_format == "csv":
-            output_file = os.path.join(path, "top_10_clientes.csv")
+            output_file = os.path.join(path, f"{output_id}.csv")
             df.to_csv(output_file, index=False)
         else:
             raise ValueError(f"Formato de output não suportado: {data_format}")
