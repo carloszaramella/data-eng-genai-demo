@@ -9,7 +9,7 @@ class ConfigNotFoundError(FileNotFoundError):
         super().__init__(f"Arquivo de configuração não encontrado: {path}")
 
 
-class DataNotFoundError(KeyError):
+class DataNotFoundError(Exception):
     """Lançada quando um ID lógico não existe no catálogo de datasets."""
 
     def __init__(self, dataset_id: str) -> None:
@@ -17,7 +17,7 @@ class DataNotFoundError(KeyError):
         super().__init__(f"Dataset não encontrado no catálogo: '{dataset_id}'")
 
 
-class OutputNotFoundError(KeyError):
+class OutputNotFoundError(Exception):
     """Lançada quando um ID lógico não existe na configuração de saída."""
 
     def __init__(self, output_id: str) -> None:

@@ -16,3 +16,4 @@ output:
   top_10_clientes:
     path: "data/output/top_10_clientes"
     format: "parquet"
+    filename: "top_10_clientes"

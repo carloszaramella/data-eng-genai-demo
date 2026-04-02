@@ -88,14 +88,15 @@ class DataIOManager:
 
         entry = self._output_config[output_id]
         fmt = entry.get("format", "parquet")
+        filename = entry.get("filename", output_id)
         path = os.path.join(self._base_path, entry["path"])
         os.makedirs(path, exist_ok=True)
 
         if fmt == "parquet":
-            dest = os.path.join(path, "top_10_clientes.parquet")
+            dest = os.path.join(path, f"{filename}.parquet")
             df.to_parquet(dest, index=False)
         elif fmt == "csv":
-            dest = os.path.join(path, "top_10_clientes.csv")
+            dest = os.path.join(path, f"{filename}.csv")
             df.to_csv(dest, index=False)
         else:
             raise ValueError(f"Formato de escrita não suportado: {fmt}")
